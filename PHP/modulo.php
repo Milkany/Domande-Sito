@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Document</title>    
 </head>
 <body>
 <?php
@@ -22,22 +22,23 @@ $pass=$_POST['password'];
 
 
 
-$stmt=$mysqli->prepare("SELECT nomeutente,pwd FROM utenti WHERE nomeutente=? and pwd=?");
+$stmt=$mysqli->prepare("SELECT * FROM utenti WHERE nomeutente=? and pwd=?");
 $stmt->bind_param("ss",$codi,$pass);
 /*ESECUZIONE DEL QUERY*/
-$stmt->execute();
+$result=$stmt->execute();
 /*BLIND RESULTS VARIABLE*/
-$stmt->bind_results($nom,$p);
-echo $nom;
+
 
 $stmt->fetch();
+//HO AGGIUNTO UN ECHO SUL fetch() DI stmt E FUNZIONA  
+echo $stmt->fetch();
 
-
-echo $stmt->num_rows;
 
 if($stmt->num_rows>0){
     //ACCESSO
-    echo "ciao";
+   // echo "ciao";
+    header("location: ../app/app.php");
+    //exit;
 }else{
     //ACCESSO NEGATO
     echo "no.";
